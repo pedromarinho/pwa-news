@@ -1,0 +1,39 @@
+#search-bar {
+    display: none;
+}
+
+@media only screen and (min-width: 992px) {
+    .hide-md {display: none;}
+    .card {
+        display: flex;
+    }
+    .card .card-image {
+        height: 100%;
+        max-height: none;
+        overflow: visible;
+    }
+    .card .card-image img {
+        max-height: 100%;
+        width: auto;          
+    }
+    .card .card-image {
+        max-width: 50%;
+    }
+    .card .card-image img {
+        border-radius: 2px 0 0 2px;
+        width: auto;
+        max-width: 100%;
+    }
+    .card .card-stacked {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+    .card .card-stacked .card-content {
+        flex-grow: 1;
+    }
+    #news {
+        margin: 5% 10%;
+    }
+}
