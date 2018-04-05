@@ -98,7 +98,7 @@
     }
 
     function getNewsHtml(article) {
-        return $('<div>').addClass('col s12 m6 l6')
+        return $('<div>').addClass('col s12 m6 l12 xl6')
             .append(
                 $('<div>').addClass('card')
                     .append(
