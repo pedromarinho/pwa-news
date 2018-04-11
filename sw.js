@@ -8,7 +8,7 @@
         '/',
         '/css/main.css',
         '/css/materialize.min.css',
-        '/image/placeholder-image.png',
+        '/images/placeholder-image.png',
         '/js/api.js',
         '/library/jquery-3.2.1.min.js',
         '/library/materialize.min.js',

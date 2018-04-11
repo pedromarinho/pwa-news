@@ -104,7 +104,7 @@
                     .append(
                         $('<div>').addClass('card-image')
                             .append(
-                                $('<img>').attr('src', article.urlToImage ? article.urlToImage : 'image/placeholder-image.png')
+                                $('<img>').attr('src', article.urlToImage ? article.urlToImage : 'images/placeholder-image.png')
                             ),
                         $('<div>').addClass('card-stacked')
                             .append(
