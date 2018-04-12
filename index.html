@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#d30021" />
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -46,9 +46,14 @@
                     <i class="material-icons">menu</i>
                 </a>
                 <ul class="right">
-                    <li>
+                    <li id="bt-install">
                         <a>
-                            <i id="nav-search-bt" class="material-icons left">search</i>
+                            <i class="material-icons">get_app</i>
+                        </a>
+                    </li>
+                    <li id="nav-search-bt">
+                        <a>
+                            <i class="material-icons">search</i>
                         </a>
                     </li>
                 </ul>
@@ -112,7 +117,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/sw.js').then(function (registration) {
+                navigator.serviceWorker.register('sw.js').then(function (registration) {
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
                 }).catch(function (err) {
                     console.log('ServiceWorker registration failed: ', err);

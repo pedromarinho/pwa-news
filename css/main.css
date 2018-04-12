@@ -1,4 +1,4 @@
-#search-bar {
+#search-bar, #bt-install {
     display: none;
 }
 
@@ -36,4 +36,8 @@
     #news {
         margin: 5% 10%;
     }
+}
+
+#toast-container {
+    top: 56px !important;
 }
