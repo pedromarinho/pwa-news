@@ -123,14 +123,16 @@ function getNewsHtml(article) {
         )
 }
 
+// ------- INSTALL PROMPT -------
+
 var deferredPrompt;
-var btnInstall = $('#bt-install');
+var btInstall = $('.bt-install');
 
 window.addEventListener('beforeinstallprompt', function (e) {
     console.log('beforeinstallprompt Event fired');
     e.preventDefault();
 
-    btnInstall.show();
+    btInstall.show();
 
     M.toast({ html: 'Clique no botão de download para instalar a aplicação', classes: 'rounded' })
 
@@ -139,7 +141,7 @@ window.addEventListener('beforeinstallprompt', function (e) {
     return false;
 });
 
-btnInstall.click(function () {
+btInstall.click(function () {
     if (deferredPrompt !== undefined) {
         deferredPrompt.prompt();
 
@@ -154,8 +156,36 @@ btnInstall.click(function () {
             }
 
             deferredPrompt = null;
-            btnInstall.hide();
+            btInstall.hide();
         });
     }
 });
+
+// ------- NOTIFICATIONS -------
+
+var permissionNotification;
+var btAlert = $('#bt-alert');
+
+if ('Notification' in window) {
+    permissionNotification = Notification.permission;
+
+    if (permissionNotification === 'default') {
+        btAlert.show();
+    }
+
+    btAlert.click(function () {
+        Notification.requestPermission().then(function (result) {
+            if (result === 'denied') {
+                console.log('Permission wasn\'t granted. Allow a retry.');
+                btAlert.hide();
+                return;
+            }
+            if (result === 'default') {
+                console.log('The permission request was dismissed.');
+                return;
+            }
+            btAlert.hide();
+        });
+    })
+}
 
