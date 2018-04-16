@@ -10,6 +10,8 @@ var API_KEY = 'apiKey=c5a59e6e745f45849e2e56af4efad07d';
 var COUNTRY = 'us';
 var MAPS_API = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
 
+var loadImage = true;
+
 $(document).ready(function () {
     $('.sidenav').sidenav();
 })
@@ -103,7 +105,7 @@ function getNewsHtml(article) {
                 .append(
                     $('<div>').addClass('card-image')
                         .append(
-                            $('<img>').attr('src', article.urlToImage ? article.urlToImage : 'images/placeholder-image.png')
+                            $('<img>').attr('src', loadImage && article.urlToImage ? article.urlToImage : 'images/placeholder-image.png')
                         ),
                     $('<div>').addClass('card-stacked')
                         .append(
@@ -221,4 +223,25 @@ if ('geolocation' in navigator) {
 } else {
     console.log('Geolocation API not supported');
     getNews();
+}
+
+// ------- NETWORK TYPE -------
+
+function getConnection() {
+    return navigator.connection || navigator.mozConnection ||
+        navigator.webkitConnection || navigator.msConnection;
+}
+
+function updateNetworkInfo(info) {
+    if (info.effectiveType === 'slow-2g' || info.effectiveType === '2g') {
+        loadImage = false;
+    } else {
+        loadImage = true;
+    }
+}
+
+var info = getConnection();
+if (info) {
+    info.addEventListener('change', updateNetworkInfo);
+    updateNetworkInfo(info);
 }
