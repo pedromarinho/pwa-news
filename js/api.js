@@ -8,9 +8,9 @@ var ENDPOINT_HEADLINES = 'top-headlines?';
 var ENDPOINT_EVERYTHING = 'everything?';
 var API_KEY = 'apiKey=c5a59e6e745f45849e2e56af4efad07d';
 var COUNTRY = 'us';
-var MAPS_API = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
+var GEONAMES_API = 'http://ws.geonames.org/countryCodeJSON?username=demo&lat=';
 
-var loadImage = true;
+var lowSpeed = false;
 
 $(document).ready(function () {
     $('.sidenav').sidenav();
@@ -105,7 +105,7 @@ function getNewsHtml(article) {
                 .append(
                     $('<div>').addClass('card-image')
                         .append(
-                            $('<img>').attr('src', loadImage && article.urlToImage ? article.urlToImage : 'images/placeholder-image.png')
+                            $('<img>').attr('src', !lowSpeed && article.urlToImage ? article.urlToImage : 'images/placeholder-image.png')
                         ),
                     $('<div>').addClass('card-stacked')
                         .append(
@@ -202,13 +202,10 @@ if ('Notification' in window) {
 // ------- GEOLOCATION -------
 
 function getCountry(lat, lng) {
-    var url = MAPS_API + lat + ',' + lng + '&key=AIzaSyAWqgQLs97DDCekTKGztK3IVwvRRlY8M0s';
+    var url = GEONAMES_API + lat + '&lng=' + lng;
+    console.log(url)
     $.get(url, function (data) {
-        var result = data.results[0].address_components[5].short_name;
-        if (result) {
-            console.log(result);
-            COUNTRY = result;
-        }
+        data.countryCode ? COUNTRY = data.countryCode : 'us';
         getNews();
     });
 }
@@ -233,11 +230,7 @@ function getConnection() {
 }
 
 function updateNetworkInfo(info) {
-    if (info.effectiveType === 'slow-2g' || info.effectiveType === '2g') {
-        loadImage = false;
-    } else {
-        loadImage = true;
-    }
+    lowSpeed = info.effectiveType === 'slow-2g' || info.effectiveType === '2g';
 }
 
 var info = getConnection();
