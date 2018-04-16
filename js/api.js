@@ -7,15 +7,16 @@ var API = 'https://newsapi.org/v2/';
 var ENDPOINT_HEADLINES = 'top-headlines?';
 var ENDPOINT_EVERYTHING = 'everything?';
 var API_KEY = 'apiKey=c5a59e6e745f45849e2e56af4efad07d';
+var COUNTRY = 'us';
+var MAPS_API = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
 
 $(document).ready(function () {
     $('.sidenav').sidenav();
 })
 
-getNews();
-
 function getNews() {
-    var url = API + ENDPOINT_HEADLINES + 'country=br&' + API_KEY + getCategory();
+    var url = API + ENDPOINT_HEADLINES + 'country=' + COUNTRY + '&' + API_KEY + getCategory();
+    console.log(url)
     $.get(url, success);
 }
 
@@ -189,3 +190,28 @@ if ('Notification' in window) {
     })
 }
 
+// ------- GEOLOCATION -------
+
+function getCountry(lat, lng) {
+    var url = MAPS_API + lat + ',' + lng + '&key=AIzaSyAWqgQLs97DDCekTKGztK3IVwvRRlY8M0s';
+    $.get(url, function (data) {
+        var result = data.results[0].address_components[5].short_name;
+        if (result) {
+            console.log(result);
+            COUNTRY = result;
+        }
+        getNews();
+    });
+}
+
+if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(function (location) {
+        console.log('location: ', location.coords);
+        getCountry(location.coords.latitude, location.coords.longitude);
+    }, function () {
+        getNews();
+    });
+} else {
+    console.log('Geolocation API not supported');
+    getNews();
+}
