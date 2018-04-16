@@ -73,8 +73,9 @@ self.addEventListener('push', function (event) {
     const title = 'PWA News';
     const options = {
         body: 'Push notification',
-        icon: 'images/icons/mstile-150x150.png',
-        badge: 'images/icons/favicon-32x32.png'
+        icon: 'images/icons/android-chrome-192x192.png',
+        badge: 'images/icons/favicon-32x32.png',
+        vibrate: [500]
     };
 
     event.waitUntil(self.registration.showNotification(title, options));

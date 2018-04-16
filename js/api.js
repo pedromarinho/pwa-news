@@ -16,7 +16,6 @@ $(document).ready(function () {
 
 function getNews() {
     var url = API + ENDPOINT_HEADLINES + 'country=' + COUNTRY + '&' + API_KEY + getCategory();
-    console.log(url)
     $.get(url, success);
 }
 
@@ -185,6 +184,14 @@ if ('Notification' in window) {
                 console.log('The permission request was dismissed.');
                 return;
             }
+            navigator.serviceWorker.ready.then(function (registration) {
+                registration.showNotification('PWA News', {
+                    body: 'Push notification',
+                    icon: 'images/icons/android-chrome-192x192.png',
+                    badge: 'images/icons/favicon-32x32.png',
+                    vibrate: [500]
+                });
+            });
             btAlert.hide();
         });
     })
