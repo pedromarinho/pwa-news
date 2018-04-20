@@ -32,6 +32,7 @@ function success(data) {
     for (var i = 0; i < data.articles.length; ++i) {
         divNews.append(getNewsHtml(data.articles[i]));
     }
+    lazyload();
 }
 
 $(".headline").click(function () {
@@ -106,7 +107,9 @@ function getNewsHtml(article) {
                     $('<div>').addClass('card-image')
                         .append(
                             $('<img>')
-                                .attr('src', !lowSpeed && article.urlToImage ? article.urlToImage : 'images/placeholder-image.png')
+                                .addClass('lazyload')
+                                .attr('src', 'images/placeholder-image.png')
+                                .attr('data-src', !lowSpeed ? article.urlToImage : 'images/placeholder-image.png')
                                 .attr('alt', article.title)
                         ),
                     $('<div>').addClass('card-stacked')

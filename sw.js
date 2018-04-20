@@ -10,6 +10,7 @@ var FILES_SHELL = [
     '/images/placeholder-image.png',
     '/js/api.js',
     '/library/jquery-3.2.1.min.js',
+    '/library/lazyload.js',
     '/library/materialize.min.js',
     '/library/moment.min.js'
 ];
