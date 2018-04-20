@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#d30021" />
+    <meta name="Description" content="PWA News">
     <link rel="manifest" href="manifest.json">
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,7 +19,7 @@
     <title>PWA NEWS</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/materialize.min.css" async defer>
     <link rel="stylesheet" href="css/main.css">
 </head>
 
@@ -61,6 +63,11 @@
                     <li id="bt-alert">
                         <a>
                             <i class="material-icons">notifications</i>
+                        </a>
+                    </li>
+                    <li id="bt-position">
+                        <a>
+                            <i class="material-icons">gps_fixed</i>
                         </a>
                     </li>
                     <li id="nav-search-bt">

@@ -8,7 +8,7 @@ var ENDPOINT_HEADLINES = 'top-headlines?';
 var ENDPOINT_EVERYTHING = 'everything?';
 var API_KEY = 'apiKey=c5a59e6e745f45849e2e56af4efad07d';
 var COUNTRY = 'us';
-var GEONAMES_API = 'http://ws.geonames.org/countryCodeJSON?username=demo&lat=';
+var MAPS_API = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
 
 var lowSpeed = false;
 
@@ -105,7 +105,9 @@ function getNewsHtml(article) {
                 .append(
                     $('<div>').addClass('card-image')
                         .append(
-                            $('<img>').attr('src', !lowSpeed && article.urlToImage ? article.urlToImage : 'images/placeholder-image.png')
+                            $('<img>')
+                                .attr('src', !lowSpeed && article.urlToImage ? article.urlToImage : 'images/placeholder-image.png')
+                                .attr('alt', article.title)
                         ),
                     $('<div>').addClass('card-stacked')
                         .append(
@@ -200,27 +202,46 @@ if ('Notification' in window) {
 }
 
 // ------- GEOLOCATION -------
+var btPosition = $('#bt-position');
 
 function getCountry(lat, lng) {
-    var url = GEONAMES_API + lat + '&lng=' + lng;
-    console.log(url)
+    var url = MAPS_API + lat + ',' + lng + '&key=AIzaSyAWqgQLs97DDCekTKGztK3IVwvRRlY8M0s';
     $.get(url, function (data) {
-        data.countryCode ? COUNTRY = data.countryCode : 'us';
+        data.results.forEach(element => {
+            if (element.types[0] === 'country') {
+                var result = element.address_components[0].short_name;
+                console.log(result);
+                COUNTRY = result;
+            }
+        });
         getNews();
     });
 }
 
 if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition(function (location) {
-        console.log('location: ', location.coords);
-        getCountry(location.coords.latitude, location.coords.longitude);
-    }, function () {
-        getNews();
+    navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+        if (result.state === 'granted') {
+            getPosition();
+        } else {
+            getNews();
+            btPosition.show();
+        }
     });
 } else {
     console.log('Geolocation API not supported');
-    getNews();
 }
+
+function getPosition() {
+    navigator.geolocation.getCurrentPosition(function (location) {
+        console.log('location: ', location.coords);
+        getCountry(location.coords.latitude, location.coords.longitude);
+        btPosition.hide();
+    });
+}
+
+btPosition.click(function () {
+    getPosition();
+})
 
 // ------- NETWORK TYPE -------
 

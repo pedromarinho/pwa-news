@@ -1,4 +1,4 @@
-#search-bar, #bt-alert, .bt-install {
+#search-bar, #bt-alert, #bt-position, .bt-install {
     display: none;
 }
 
@@ -46,4 +46,12 @@
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
+}
+
+.card .card-action a {
+    color: #4D4D4D !important;
+}
+
+nav ul a {
+    padding: 0 5px;
 }
