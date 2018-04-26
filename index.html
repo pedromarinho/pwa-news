@@ -17,10 +17,6 @@
     <meta name="msapplication-TileColor" content="#2F3BA2">
 
     <title>PWA NEWS</title>
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/materialize.min.css" async defer>
-    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
@@ -118,7 +114,7 @@
         </li>
     </ul>
 
-    <div class="row" id="news">
+    <div id="news">
         <div class="progress white">
             <div class="indeterminate red"></div>
         </div>
@@ -131,12 +127,15 @@
             </div>
         </div>
     </footer>
-
     <script src="library/jquery-3.2.1.min.js"></script>
     <script src="library/lazyload.js"></script>
     <script src="library/materialize.min.js"></script>
     <script src="library/moment.min.js"></script>
     <script src="js/api.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
 
     <script>
         if ('serviceWorker' in navigator) {

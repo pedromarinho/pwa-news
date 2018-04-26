@@ -29,8 +29,14 @@ function getNewsWithSearch() {
 function success(data) {
     var divNews = $('#news');
     divNews.empty();
-    for (var i = 0; i < data.articles.length; ++i) {
-        divNews.append(getNewsHtml(data.articles[i]));
+    for (var i = 0; i < data.articles.length; i += 2) {
+        divNews.append(
+            $('<div>').addClass('row')
+                .append(
+                    getNewsHtml(data.articles[i]),
+                    getNewsHtml(data.articles[i + 1])
+                )
+        )
     }
     lazyload();
 }
@@ -122,7 +128,7 @@ function getNewsHtml(article) {
                                 ),
                             $('<div>').addClass('card-action')
                                 .append(
-                                    $('<a>').attr('href', article.url).append('Read article')
+                                    $('<a>').attr('href', article.url).append('Read article').attr('target', '_blank').attr('rel', 'noopener')
                                 )
                         )
 
